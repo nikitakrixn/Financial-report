@@ -1,0 +1,439 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Хранилище Platez_prowelModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Category">
+          <Key>
+            <PropertyRef Name="id_category" />
+          </Key>
+          <Property Name="id_category" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Paymont">
+          <Key>
+            <PropertyRef Name="id_platez" />
+          </Key>
+          <Property Name="id_platez" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="50" />
+          <Property Name="Quantity" Type="int" />
+          <Property Name="Price" Type="float" />
+          <Property Name="Cost" Type="float" />
+          <Property Name="Date" Type="date" />
+          <Property Name="id_user" Type="int" />
+          <Property Name="id_category" Type="int" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="id_user" />
+          </Key>
+          <Property Name="id_user" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FIO" Type="varchar(max)" />
+          <Property Name="Login" Type="varchar" MaxLength="50" />
+          <Property Name="Password" Type="varchar" MaxLength="50" />
+          <Property Name="Pin_Code" Type="int" />
+        </EntityType>
+        <Association Name="FK_Paymont_Category">
+          <End Role="Category" Type="Self.Category" Multiplicity="0..1" />
+          <End Role="Paymont" Type="Self.Paymont" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category">
+              <PropertyRef Name="id_category" />
+            </Principal>
+            <Dependent Role="Paymont">
+              <PropertyRef Name="id_category" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Paymont_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+          <End Role="Paymont" Type="Self.Paymont" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="id_user" />
+            </Principal>
+            <Dependent Role="Paymont">
+              <PropertyRef Name="id_user" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="Category_Delete" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id_category" Type="int" Mode="In" />
+        </Function>
+        <Function Name="Category_Insert" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Name" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="Category_Select" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id_category" Type="int" Mode="In" />
+        </Function>
+        <Function Name="Category_Update" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id_category" Type="int" Mode="In" />
+          <Parameter Name="Name" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="Paymount_Delete" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id_platej" Type="int" Mode="In" />
+        </Function>
+        <Function Name="Paymount_Full_Search" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id_user" Type="int" Mode="In" />
+          <Parameter Name="id_category" Type="int" Mode="In" />
+          <Parameter Name="sPeriod" Type="date" Mode="In" />
+          <Parameter Name="ePeriod" Type="date" Mode="In" />
+        </Function>
+        <Function Name="Paymount_Insert" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Name" Type="nvarchar" Mode="In" />
+          <Parameter Name="Kolvo" Type="int" Mode="In" />
+          <Parameter Name="Price" Type="float" Mode="In" />
+          <Parameter Name="id_user" Type="int" Mode="In" />
+          <Parameter Name="id_category" Type="int" Mode="In" />
+        </Function>
+        <Function Name="Paymount_Period" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id_user" Type="int" Mode="In" />
+          <Parameter Name="sPeriod" Type="date" Mode="In" />
+          <Parameter Name="ePeriod" Type="date" Mode="In" />
+        </Function>
+        <Function Name="Paymount_Search" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id_user" Type="int" Mode="In" />
+          <Parameter Name="id_category" Type="int" Mode="In" />
+        </Function>
+        <Function Name="Paymount_Select" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id_user" Type="int" Mode="In" />
+        </Function>
+        <Function Name="Paymount_Update" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id_platej" Type="int" Mode="In" />
+          <Parameter Name="Name" Type="nvarchar" Mode="In" />
+          <Parameter Name="Kolvo" Type="int" Mode="In" />
+          <Parameter Name="Price" Type="float" Mode="In" />
+          <Parameter Name="Cost" Type="float" Mode="In" />
+          <Parameter Name="Date" Type="date" Mode="In" />
+          <Parameter Name="id_user" Type="int" Mode="In" />
+          <Parameter Name="id_category" Type="int" Mode="In" />
+        </Function>
+        <Function Name="Users_Insert" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Login" Type="nvarchar" Mode="In" />
+          <Parameter Name="Password" Type="nvarchar" Mode="In" />
+          <Parameter Name="FIO" Type="nvarchar" Mode="In" />
+          <Parameter Name="Pin_Code" Type="int" Mode="In" />
+        </Function>
+        <Function Name="Users_Select" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="Users_Update" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id_user" Type="int" Mode="In" />
+          <Parameter Name="Password" Type="nvarchar" Mode="In" />
+          <Parameter Name="Pin_kod" Type="int" Mode="In" />
+        </Function>
+        <EntityContainer Name="Хранилище Platez_prowelModelContainer">
+          <EntitySet Name="Category" EntityType="Self.Category" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Paymont" EntityType="Self.Paymont" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Paymont_Category" Association="Self.FK_Paymont_Category">
+            <End Role="Category" EntitySet="Category" />
+            <End Role="Paymont" EntitySet="Paymont" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Paymont_Users" Association="Self.FK_Paymont_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Paymont" EntitySet="Paymont" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Platez_prowelModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Category">
+          <Key>
+            <PropertyRef Name="id_category" />
+          </Key>
+          <Property Name="id_category" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Paymont" Relationship="Self.FK_Paymont_Category" FromRole="Category" ToRole="Paymont" />
+        </EntityType>
+        <EntityType Name="Paymont">
+          <Key>
+            <PropertyRef Name="id_platez" />
+          </Key>
+          <Property Name="id_platez" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Quantity" Type="Int32" />
+          <Property Name="Price" Type="Double" />
+          <Property Name="Cost" Type="Double" />
+          <Property Name="Date" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="Category" Relationship="Self.FK_Paymont_Category" FromRole="Paymont" ToRole="Category" />
+          <NavigationProperty Name="Users" Relationship="Self.FK_Paymont_Users" FromRole="Paymont" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="id_user" />
+          </Key>
+          <Property Name="id_user" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FIO" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Login" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Pin_Code" Type="Int32" />
+          <NavigationProperty Name="Paymont" Relationship="Self.FK_Paymont_Users" FromRole="Users" ToRole="Paymont" />
+        </EntityType>
+        <Association Name="FK_Paymont_Category">
+          <End Role="Category" Type="Self.Category" Multiplicity="0..1" />
+          <End Role="Paymont" Type="Self.Paymont" Multiplicity="*" />
+        </Association>
+        <Association Name="FK_Paymont_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+          <End Role="Paymont" Type="Self.Paymont" Multiplicity="*" />
+        </Association>
+        <EntityContainer Name="Platej_Entity" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Category" EntityType="Self.Category" />
+          <EntitySet Name="Paymont" EntityType="Self.Paymont" />
+          <EntitySet Name="Users" EntityType="Self.Users" />
+          <AssociationSet Name="FK_Paymont_Category" Association="Self.FK_Paymont_Category">
+            <End Role="Category" EntitySet="Category" />
+            <End Role="Paymont" EntitySet="Paymont" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Paymont_Users" Association="Self.FK_Paymont_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Paymont" EntitySet="Paymont" />
+          </AssociationSet>
+          <FunctionImport Name="Category_Delete">
+          <Parameter Name="id_category" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="Category_Insert">
+          <Parameter Name="Name" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="Category_Select" ReturnType="Collection(Platez_prowelModel.Category_Select_Result)">
+          <Parameter Name="id_category" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="Category_Update">
+            <Parameter Name="id_category" Mode="In" Type="Int32" />
+            <Parameter Name="Name" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="Paymount_Delete">
+          <Parameter Name="id_platej" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="Paymount_Insert">
+            <Parameter Name="Name" Mode="In" Type="String" />
+            <Parameter Name="Kolvo" Mode="In" Type="Int32" />
+            <Parameter Name="Price" Mode="In" Type="Double" />
+            <Parameter Name="id_user" Mode="In" Type="Int32" />
+            <Parameter Name="id_category" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="Paymount_Select" ReturnType="Collection(Platez_prowelModel.Paymount_Select_Result)">
+          <Parameter Name="id_user" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="Paymount_Update">
+            <Parameter Name="id_platej" Mode="In" Type="Int32" />
+            <Parameter Name="Name" Mode="In" Type="String" />
+            <Parameter Name="Kolvo" Mode="In" Type="Int32" />
+            <Parameter Name="Price" Mode="In" Type="Double" />
+            <Parameter Name="Cost" Mode="In" Type="Double" />
+            <Parameter Name="Date" Mode="In" Type="DateTime" />
+            <Parameter Name="id_user" Mode="In" Type="Int32" />
+            <Parameter Name="id_category" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="Users_Select" ReturnType="Collection(String)" />
+          <FunctionImport Name="Users_Update">
+            <Parameter Name="id_user" Mode="In" Type="Int32" />
+            <Parameter Name="Password" Mode="In" Type="String" />
+            <Parameter Name="Pin_kod" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="Paymount_Search" ReturnType="Collection(Platez_prowelModel.Paymount_Search_Result)">
+            <Parameter Name="id_user" Mode="In" Type="Int32" />
+            <Parameter Name="id_category" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="Paymount_Period" ReturnType="Collection(Platez_prowelModel.Paymount_Period_Result)">
+            <Parameter Name="id_user" Mode="In" Type="Int32" />
+            <Parameter Name="sPeriod" Mode="In" Type="DateTime" />
+            <Parameter Name="ePeriod" Mode="In" Type="DateTime" />
+          </FunctionImport>
+          <FunctionImport Name="Paymount_Full_Search" ReturnType="Collection(Platez_prowelModel.Paymount_Full_Search_Result)">
+            <Parameter Name="id_user" Mode="In" Type="Int32" />
+            <Parameter Name="id_category" Mode="In" Type="Int32" />
+            <Parameter Name="sPeriod" Mode="In" Type="DateTime" />
+            <Parameter Name="ePeriod" Mode="In" Type="DateTime" />
+          </FunctionImport>
+          <FunctionImport Name="Users_Insert">
+            <Parameter Name="Login" Mode="In" Type="String" />
+            <Parameter Name="Password" Mode="In" Type="String" />
+            <Parameter Name="FIO" Mode="In" Type="String" />
+            <Parameter Name="Pin_Code" Mode="In" Type="Int32" />
+          </FunctionImport>
+        </EntityContainer>
+        <ComplexType Name="Paymount_Select_Result">
+          <Property Type="Int32" Name="Количество" Nullable="true" />
+          <Property Type="Double" Name="Цена" Nullable="true" />
+          <Property Type="Double" Name="Сумма" Nullable="true" />
+          <Property Type="String" Name="Категория" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="Наименование_платежа" Nullable="true" MaxLength="50" />
+          <Property Type="DateTime" Name="Дата_платежа" Nullable="true" />
+          </ComplexType>
+        <ComplexType Name="Paymount_Search_Result">
+          <Property Type="String" Name="Наименование_платежа" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="Количество" Nullable="true" />
+          <Property Type="Double" Name="Цена" Nullable="true" />
+          <Property Type="Double" Name="Сумма" Nullable="true" />
+          <Property Type="String" Name="Категория" Nullable="true" MaxLength="50" />
+          <Property Type="DateTime" Name="Дата_платежа" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="Paymount_Period_Result">
+          <Property Type="String" Name="Наименование_платежа" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="Количество" Nullable="true" />
+          <Property Type="Double" Name="Цена" Nullable="true" />
+          <Property Type="Double" Name="Сумма" Nullable="true" />
+          <Property Type="String" Name="Категория" Nullable="true" MaxLength="50" />
+          <Property Type="DateTime" Name="Дата_платежа" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="Paymount_Full_Search_Result">
+          <Property Type="String" Name="Наименование_платежа" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="Количество" Nullable="true" />
+          <Property Type="Double" Name="Цена" Nullable="true" />
+          <Property Type="Double" Name="Сумма" Nullable="true" />
+          <Property Type="String" Name="Категория" Nullable="true" MaxLength="50" />
+          <Property Type="DateTime" Name="Дата_платежа" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="Category_Select_Result">
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="Наименование" Nullable="true" MaxLength="50" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище Platez_prowelModelContainer" CdmEntityContainer="Platej_Entity">
+          <EntitySetMapping Name="Category">
+            <EntityTypeMapping TypeName="Platez_prowelModel.Category">
+              <MappingFragment StoreEntitySet="Category">
+                <ScalarProperty Name="id_category" ColumnName="id_category" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Paymont">
+            <EntityTypeMapping TypeName="Platez_prowelModel.Paymont">
+              <MappingFragment StoreEntitySet="Paymont">
+                <ScalarProperty Name="id_platez" ColumnName="id_platez" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="Cost" ColumnName="Cost" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="Platez_prowelModel.Users">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="id_user" ColumnName="id_user" />
+                <ScalarProperty Name="FIO" ColumnName="FIO" />
+                <ScalarProperty Name="Login" ColumnName="Login" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Pin_Code" ColumnName="Pin_Code" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="FK_Paymont_Category" TypeName="Platez_prowelModel.FK_Paymont_Category" StoreEntitySet="Paymont">
+            <EndProperty Name="Category">
+              <ScalarProperty Name="id_category" ColumnName="id_category" />
+            </EndProperty>
+            <EndProperty Name="Paymont">
+              <ScalarProperty Name="id_platez" ColumnName="id_platez" />
+            </EndProperty>
+            <Condition IsNull="false" ColumnName="id_category" />
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="FK_Paymont_Users" TypeName="Platez_prowelModel.FK_Paymont_Users" StoreEntitySet="Paymont">
+            <EndProperty Name="Users">
+              <ScalarProperty Name="id_user" ColumnName="id_user" />
+            </EndProperty>
+            <EndProperty Name="Paymont">
+              <ScalarProperty Name="id_platez" ColumnName="id_platez" />
+            </EndProperty>
+            <Condition IsNull="false" ColumnName="id_user" />
+          </AssociationSetMapping>
+          <FunctionImportMapping FunctionImportName="Category_Delete" FunctionName="Хранилище Platez_prowelModel.Category_Delete" />
+          <FunctionImportMapping FunctionImportName="Category_Insert" FunctionName="Хранилище Platez_prowelModel.Category_Insert" />
+          <FunctionImportMapping FunctionImportName="Category_Select" FunctionName="Хранилище Platez_prowelModel.Category_Select" >
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Platez_prowelModel.Category_Select_Result">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Наименование" ColumnName="Наименование" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="Category_Update" FunctionName="Хранилище Platez_prowelModel.Category_Update" />
+          <FunctionImportMapping FunctionImportName="Paymount_Delete" FunctionName="Хранилище Platez_prowelModel.Paymount_Delete" />
+          <FunctionImportMapping FunctionImportName="Paymount_Insert" FunctionName="Хранилище Platez_prowelModel.Paymount_Insert" />
+          <FunctionImportMapping FunctionImportName="Paymount_Select" FunctionName="Хранилище Platez_prowelModel.Paymount_Select">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Platez_prowelModel.Paymount_Select_Result">
+                <ScalarProperty Name="Количество" ColumnName="Количество" />
+                <ScalarProperty Name="Цена" ColumnName="Цена" />
+                <ScalarProperty Name="Сумма" ColumnName="Сумма" />
+                <ScalarProperty Name="Категория" ColumnName="Категория" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Наименование_платежа" ColumnName="Наименование платежа" />
+                <ScalarProperty Name="Дата_платежа" ColumnName="Дата платежа" />
+                </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="Paymount_Update" FunctionName="Хранилище Platez_prowelModel.Paymount_Update" />
+          <FunctionImportMapping FunctionImportName="Users_Select" FunctionName="Хранилище Platez_prowelModel.Users_Select" />
+          <FunctionImportMapping FunctionImportName="Users_Update" FunctionName="Хранилище Platez_prowelModel.Users_Update" />
+          <FunctionImportMapping FunctionImportName="Paymount_Search" FunctionName="Хранилище Platez_prowelModel.Paymount_Search">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Platez_prowelModel.Paymount_Search_Result">
+                <ScalarProperty Name="Наименование_платежа" ColumnName="Наименование платежа" />
+                <ScalarProperty Name="Количество" ColumnName="Количество" />
+                <ScalarProperty Name="Цена" ColumnName="Цена" />
+                <ScalarProperty Name="Сумма" ColumnName="Сумма" />
+                <ScalarProperty Name="Категория" ColumnName="Категория" />
+                <ScalarProperty Name="Дата_платежа" ColumnName="Дата платежа" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="Paymount_Period" FunctionName="Хранилище Platez_prowelModel.Paymount_Period">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Platez_prowelModel.Paymount_Period_Result">
+                <ScalarProperty Name="Наименование_платежа" ColumnName="Наименование платежа" />
+                <ScalarProperty Name="Количество" ColumnName="Количество" />
+                <ScalarProperty Name="Цена" ColumnName="Цена" />
+                <ScalarProperty Name="Сумма" ColumnName="Сумма" />
+                <ScalarProperty Name="Категория" ColumnName="Категория" />
+                <ScalarProperty Name="Дата_платежа" ColumnName="Дата платежа" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="Paymount_Full_Search" FunctionName="Хранилище Platez_prowelModel.Paymount_Full_Search">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Platez_prowelModel.Paymount_Full_Search_Result">
+                <ScalarProperty Name="Наименование_платежа" ColumnName="Наименование платежа" />
+                <ScalarProperty Name="Количество" ColumnName="Количество" />
+                <ScalarProperty Name="Цена" ColumnName="Цена" />
+                <ScalarProperty Name="Сумма" ColumnName="Сумма" />
+                <ScalarProperty Name="Категория" ColumnName="Категория" />
+                <ScalarProperty Name="Дата_платежа" ColumnName="Дата платежа" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="Users_Insert" FunctionName="Хранилище Platez_prowelModel.Users_Insert" />
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="false" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
